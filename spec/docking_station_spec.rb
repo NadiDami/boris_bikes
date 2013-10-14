@@ -1,3 +1,5 @@
+require 'docking_station'
+
 describe DockingStation do
 
   it 'should accept a bike' do
