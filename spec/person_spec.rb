@@ -5,6 +5,7 @@ describe Person do
   let(:person) {Person.new}
   let(:station) {double :station}
 
+
   it 'does not have a bike' do
     expect(person.has_bike?).to be_false
   end
@@ -19,8 +20,8 @@ describe Person do
     person.rent_bike_from station
   end
 
-  it 'has a bike after renting from the station' do
-    station = double :station, {:release => :bike}
+  it 'has a bike after renting from the station' do 
+    expect(station).to receive(:release).and_return :bike
     person.rent_bike_from station
     expect(person.has_bike?).to be_true
   end
@@ -36,5 +37,13 @@ describe Person do
     person.return_bike_to station 
     expect(person.has_bike?).to be_false
   end
+
+  it 'has an accident and breaks bike' do
+    bike = double :bike
+    person = Person.new bike
+    expect(bike).to receive (:break!)
+    person.has_accident
+  end
+
 
 end
