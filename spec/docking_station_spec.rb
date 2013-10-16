@@ -2,7 +2,8 @@ require 'docking_station'
 
 describe DockingStation do
 
-  let(:bike) { Bike.new }
+  let(:bike) { double :bike, broken?: false } #ask about syntax 
+  let(:broken_bike) {double :broken_bike, broken?: true} 
   let(:station) { DockingStation.new(20) }
 
   it 'accepts a bike' do
@@ -28,20 +29,30 @@ describe DockingStation do
     expect(lambda { station.dock(bike) }).to raise_error(RuntimeError)
   end
 
-  it 'provides the list of available bikes' do
-    working_bike, broken_bike = Bike.new, Bike.new
-    broken_bike.break!
-    station.dock(working_bike)
-    station.dock(broken_bike)
-    expect(station.available_bikes).to eq ([working_bike])
+  it 'provides the list of working bikes' do
+    station.dock bike 
+    station.dock broken_bike
+    expect(station.working_bikes).to eq ([bike])
   end
 
   it 'provides the list of broken bikes' do
-    working_bike, broken_bike = Bike.new, Bike.new
-    broken_bike.break!
-    station.dock(working_bike)
-    station.dock(broken_bike)
+    station.dock bike
+    station.dock broken_bike
     expect(station.broken_bikes).to eq ([broken_bike])
   end
+
+  it 'provides the number of working bikes' do
+    station.dock bike
+    station.dock broken_bike
+    expect(station.working_bike_count).to eq 1
+  end
+
+  it 'provides the number of broken bikes' do
+    station.dock bike
+    station.dock broken_bike
+    expect(station.broken_bike_count).to eq 1
+  end
+
+
 
 end 
