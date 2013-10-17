@@ -9,4 +9,15 @@ class Garage
     @capacity = capacity
   end
 
+
+  def load_broken_bikes_from van
+    @bikes.concat(van.deliver_broken_bikes)
+  end
+
+  def fix_bikes
+    @bikes.map { |bike| bike.fix!}
+  end
+
+
+
 end

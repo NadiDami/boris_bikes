@@ -10,7 +10,7 @@ class Van
   end
 
   def load_broken_bikes_from station
-    @bikes += station.release_broken_bikes
+    @bikes.concat(station.release_broken_bikes) 
   end
 
   def deliver_broken_bikes
@@ -18,7 +18,7 @@ class Van
   end
 
   def load_fixed_bikes_from garage
-    @bikes += garage.release_fixed_bikes
+    @bikes.concat(garage.release_fixed_bikes) 
   end
 
   def release_fixed_bikes

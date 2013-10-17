@@ -11,11 +11,14 @@ class DockingStation
 
 
   def release_broken_bikes
-    @bikes.reject! { |bike| bike.broken? }
+    broken = broken_bikes
+    @bikes = self.working_bikes
+    broken
   end
 
   def accept_fixed_bikes_from van
-    @bikes += van.release_fixed_bikes 
+    @bikes.concat(van.release_fixed_bikes)
   end
+
 
 end

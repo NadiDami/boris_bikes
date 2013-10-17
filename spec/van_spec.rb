@@ -39,7 +39,6 @@ describe Van do
 
   it 'delivers fixed bikes to the station' do
     van.dock bike
-    expect(van.bike_count).to eq 1
     van.release_fixed_bikes
     expect(van.bike_count).to eq 0
   end

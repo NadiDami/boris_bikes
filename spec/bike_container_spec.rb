@@ -6,7 +6,6 @@ shared_examples 'a bike container' do
 
 
   it 'accepts a bike' do
-    expect(container.bike_count).to eq 0
     container.dock(bike)
     expect(container.bike_count).to eq 1
   end
