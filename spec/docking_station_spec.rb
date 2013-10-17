@@ -1,28 +1,15 @@
 require 'docking_station'
+require_relative 'bike_container_spec'
 
 describe DockingStation do
 
+  it_behaves_like 'a bike container'
+
   let(:bike) { double :bike, broken?: false } #ask about syntax 
   let(:broken_bike) {double :broken_bike, broken?: true} 
-  let(:station) { DockingStation.new(20) }
+  let(:station) { DockingStation.new([], 20) }
 
-  it 'accepts a bike' do
-    expect(station.bike_count).to eq 0
-    station.dock(bike)
-    expect(station.bike_count).to eq 1
-  end
 
-  it 'releases a bike' do
-    station.dock(bike)
-    station.release
-    expect(station.bike_count). to eq 0
-  end
-
-  it "knows when it's full" do
-    expect(station).not_to be_full
-    20.times { station.dock(bike) }
-    expect(station).to be_full
-  end
 
   it "does not accept a bike if it's full" do
     20.times { station.dock(bike) }

@@ -1,26 +1,21 @@
+require_relative 'bike_container'
+
 class Van
 
-  def initialize bikes = []
-    @bikes = bikes
-  end
+  include BikeContainer
 
-  def bike_count
-    @bikes.count
+  def initialize(bikes = [], capacity = 5)
+    @bikes = bikes
+    @capacity = capacity
   end
 
   def load_broken_bikes_from station
     @bikes += station.release_broken_bikes
   end
 
-  def deliver_broken_bikes 
-   @bikes.reject! { |bike| bike.broken? }
+  def deliver_broken_bikes garage
+    garage.dock_broken_bikes @bikes.delete { |bike| bike.broken? }
+
   end
-
-
-  
-
-  # def return_bike_to station
-  #   station.dock @bikes[0]
-  # end
 
 end
