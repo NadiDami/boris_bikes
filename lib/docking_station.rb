@@ -15,7 +15,7 @@ class DockingStation
   end
 
   def accept_fixed_bikes_from van
-    @bikes += van.release_fixed_bikes_to self
+    @bikes += van.release_fixed_bikes 
   end
 
 end

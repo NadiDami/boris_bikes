@@ -22,7 +22,7 @@ describe DockingStation do
     van = double :van, {:dock => :bike}
     van.dock bike
     van.dock broken_bike
-    expect(van).to receive(:release_fixed_bikes_to).with(station).and_return [bike]
+    expect(van).to receive(:release_fixed_bikes).and_return [bike]
     station.accept_fixed_bikes_from(van)
     expect(station.working_bikes).to eq [bike]
   end

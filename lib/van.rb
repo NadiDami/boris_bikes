@@ -13,9 +13,16 @@ class Van
     @bikes += station.release_broken_bikes
   end
 
-  def deliver_broken_bikes garage
-    garage.dock_broken_bikes @bikes.delete { |bike| bike.broken? }
+  def deliver_broken_bikes
+   @bikes.reject! { |bike| bike.broken? }
+  end
 
+  def load_fixed_bikes_from garage
+    @bikes += garage.release_fixed_bikes
+  end
+
+  def release_fixed_bikes
+    @bikes.reject! { |bike| !bike.broken? }
   end
 
 end

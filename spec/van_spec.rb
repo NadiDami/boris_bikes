@@ -23,37 +23,30 @@ describe Van do
     expect(van.bike_count).to eq 2
   end
 
-  
+  it 'delivers broken bikes to the garage' do
+    van.dock broken_bike
+    expect(van.bike_count).to eq 1
+    van.deliver_broken_bikes
+    expect(van.bike_count).to eq 0
+  end
+
+  it 'accepts fixed bikes from the garage' do
+    expect(van.bike_count).to eq 0
+    expect(garage).to receive(:release_fixed_bikes).and_return([bike])
+    van.load_fixed_bikes_from garage
+    expect(van.bike_count).to eq 1
+  end
+
+  it 'delivers fixed bikes to the station' do
+    van.dock bike
+    expect(van.bike_count).to eq 1
+    van.release_fixed_bikes
+    expect(van.bike_count).to eq 0
+  end
 
 
-  # it 'picks up fixed bikes from the garage' do
-
-  # end
-
-# it 'releases a fixed bike to the station' do
-#   bike.break!
-#   station.dock bike
-#   van.lead_broken_bikes_from station
-#   expect(van.bike_count).to eq 1
-#   bike.fix!
-
-# end
-
-# it 'releases a bike to the station' do
-#   van.load_bike_from(station)
-#   expect(van.bike_count).to eq 1
-#   expect(station).to receive(:dock => :bike)
-#   van.return_bike_to(station)
-#   expect(van.bike_count).to eq 0 
-# end
 
 
 end
 
- # it 'provides the list of available bikes' do
- #    working_bike, broken_bike = Bike.new, Bike.new
- #    broken_bike.break!
- #    station.dock(working_bike)
- #    station.dock(broken_bike)
- #    expect(station.available_bikes).to eq ([working_bike])
- #  end
+ 
