@@ -12,17 +12,18 @@ describe Van do
   let(:station) {double :station} 
   let (:garage) {double :garage}
 
-# it 'accepts broken bikes from the station' do
-#   station = double :station, {:dock => :bike}
-#   station.dock bike
-#   station.dock broken_bike
-#   station.dock broken_bike2
-#   expect(van.bike_count).to eq 0
-#   expect(station).to receive(:release_broken_bikes).and_return([broken_bike, broken_bike2])
-#   van.load_broken_bikes_from station
-#   expect(van.bike_count).to eq 2
-# end
+  it 'accepts broken bikes from the station' do
+    station = double :station, {:dock => :bike}
+    station.dock bike
+    station.dock broken_bike
+    station.dock broken_bike2
+    expect(van.bike_count).to eq 0
+    expect(station).to receive(:release_broken_bikes).and_return([broken_bike, broken_bike2])
+    van.load_broken_bikes_from station
+    expect(van.bike_count).to eq 2
+  end
 
+  
 
 
   # it 'picks up fixed bikes from the garage' do

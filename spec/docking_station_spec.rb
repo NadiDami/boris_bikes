@@ -7,38 +7,26 @@ describe DockingStation do
 
   let(:bike) { double :bike, broken?: false } #ask about syntax 
   let(:broken_bike) {double :broken_bike, broken?: true} 
-  let(:station) { DockingStation.new([], 20) }
+  let(:van) {double :van}
+  let(:station) { DockingStation.new}
 
+  it 'releases only broken bikes to a van' do
+    station = DockingStation.new([bike, broken_bike], 2)
+    station.release_broken_bikes
+    expect(station.broken_bikes).to eq []
 
-
-  it "does not accept a bike if it's full" do
-    20.times { station.dock(bike) }
-    expect(lambda { station.dock(bike) }).to raise_error(RuntimeError)
   end
 
-  it 'provides the list of working bikes' do
-    station.dock bike 
-    station.dock broken_bike
-    expect(station.working_bikes).to eq ([bike])
+  it 'accepts only fixed bikes from the van' do
+    expect(station.working_bikes).to eq []
+    van = double :van, {:dock => :bike}
+    van.dock bike
+    van.dock broken_bike
+    expect(van).to receive(:release_fixed_bikes_to).with(station).and_return [bike]
+    station.accept_fixed_bikes_from(van)
+    expect(station.working_bikes).to eq [bike]
   end
 
-  it 'provides the list of broken bikes' do
-    station.dock bike
-    station.dock broken_bike
-    expect(station.broken_bikes).to eq ([broken_bike])
-  end
-
-  it 'provides the number of working bikes' do
-    station.dock bike
-    station.dock broken_bike
-    expect(station.working_bike_count).to eq 1
-  end
-
-  it 'provides the number of broken bikes' do
-    station.dock bike
-    station.dock broken_bike
-    expect(station.broken_bike_count).to eq 1
-  end
 
 
 

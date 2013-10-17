@@ -10,23 +10,12 @@ class DockingStation
   end
 
 
-  def working_bikes
-    @bikes.reject { |bike| bike.broken? }
+  def release_broken_bikes
+    @bikes.reject! { |bike| bike.broken? }
   end
 
-  def broken_bikes
-    @bikes.select { |bike| bike.broken? }
+  def accept_fixed_bikes_from van
+    @bikes += van.release_fixed_bikes_to self
   end
-
-  def working_bike_count
-    working_bikes = @bikes.reject { |bike| bike.broken? }
-    working_bikes.count
-  end
-
-  def broken_bike_count
-    broken_bikes = @bikes.select { |bike| bike.broken? }
-    broken_bikes.count
-  end
-
 
 end
