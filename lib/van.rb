@@ -13,16 +13,16 @@ class Van
     @bikes.concat(station.release_broken_bikes) 
   end
 
-  def deliver_broken_bikes
-   @bikes.reject! { |bike| bike.broken? }
+  def deliver_broken_bikes_to garage
+   garage.dock(@bikes.select! { |bike| bike.broken? })
   end
 
   def load_fixed_bikes_from garage
-    @bikes.concat(garage.release_fixed_bikes) 
+    @bikes.concat(garage.working_bikes) 
   end
 
-  def release_fixed_bikes
-    @bikes.reject! { |bike| !bike.broken? }
+  def release_fixed_bikes_to station
+    station.dock(@bikes.reject! { |bike| !bike.broken? })
   end
 
 end
