@@ -24,9 +24,9 @@ class Van
   end
 
   def release_fixed_bikes_to station
-    @bikes = self.broken_bikes
     working_bikes = @bikes.reject { |bike| bike.broken? }
     working_bikes.each {|bike| station.dock bike}
+    @bikes = self.broken_bikes
   end
 
 end
