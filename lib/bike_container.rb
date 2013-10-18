@@ -48,5 +48,9 @@ module BikeContainer
     working
   end
 
+  def spaces_available
+    @capacity - bike_count
+  end
+
 
 end

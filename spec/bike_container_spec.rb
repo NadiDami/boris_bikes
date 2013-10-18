@@ -61,5 +61,10 @@ end
     container.release_working_bikes
     expect(container.working_bikes).to eq []
   end
+
+  it 'knows how many spaces are available' do
+    container = described_class.new([bike], 2)
+    expect(container.spaces_available).to eq 1
+  end
   
 end
