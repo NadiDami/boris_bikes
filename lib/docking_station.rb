@@ -10,15 +10,4 @@ class DockingStation
   end
 
 
-  def release_broken_bikes
-    broken = broken_bikes
-    @bikes = self.working_bikes
-    broken
-  end
-
-  def accept_fixed_bikes_from van
-    @bikes.concat(van.release_fixed_bikes)
-  end
-
-
 end

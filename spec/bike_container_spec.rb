@@ -50,5 +50,16 @@ end
     expect(container  .broken_bike_count).to eq 1
   end
 
+  it 'releases only broken bikes' do
+    container = described_class.new([bike, broken_bike], 2)
+    container.release_broken_bikes
+    expect(container.broken_bikes).to eq []
+  end
+
+  it 'releases only fixed bikes' do
+    container = described_class.new([bike, broken_bike], 2)
+    container.release_working_bikes
+    expect(container.working_bikes).to eq []
+  end
   
 end

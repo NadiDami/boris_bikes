@@ -36,4 +36,17 @@ module BikeContainer
     broken_bikes.count
   end
 
+   def release_broken_bikes
+    broken = broken_bikes
+    @bikes = self.working_bikes
+    broken
+  end
+
+  def release_working_bikes
+    working = working_bikes
+    @bikes = self.broken_bikes
+    working
+  end
+
+
 end

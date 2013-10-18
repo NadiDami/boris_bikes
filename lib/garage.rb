@@ -11,7 +11,7 @@ class Garage
 
 
   def fix_bikes
-    @bikes.map { |bike| bike.fix!}
+    broken_bikes.each { |bike| bike.fix!}
   end
 
 

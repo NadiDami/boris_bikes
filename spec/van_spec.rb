@@ -19,18 +19,17 @@ describe Van do
   end
 
   it 'delivers broken bikes to the garage' do
-    expect(garage).to receive(:dock)
+   garage = double :garage, {:dock => :broken_bike}
     van.deliver_broken_bikes_to garage 
   end
 
   it 'accepts fixed bikes from the garage' do
-    garage = double :garage, { working_bikes: [bike] }
-    expect(garage).to receive(:working_bikes)
+    expect(garage).to receive(:release_working_bikes)
     van.load_fixed_bikes_from garage
   end
 
   it 'delivers fixed bikes to the station' do
-    expect(station).to receive(:dock)
+    station = double :station, {:dock => :bike}
     van.release_fixed_bikes_to station
   end
 

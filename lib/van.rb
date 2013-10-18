@@ -14,15 +14,19 @@ class Van
   end
 
   def deliver_broken_bikes_to garage
-   garage.dock(@bikes.select! { |bike| bike.broken? })
+    broken_bikes = @bikes.select { |bike| bike.broken? }
+    broken_bikes.each {|bike| garage.dock bike}
+    @bikes = self.working_bikes
   end
 
   def load_fixed_bikes_from garage
-    @bikes.concat(garage.working_bikes) 
+    @bikes = garage.release_working_bikes
   end
 
   def release_fixed_bikes_to station
-    station.dock(@bikes.reject! { |bike| !bike.broken? })
+    @bikes = self.broken_bikes
+    working_bikes = @bikes.reject { |bike| bike.broken? }
+    working_bikes.each {|bike| station.dock bike}
   end
 
 end
